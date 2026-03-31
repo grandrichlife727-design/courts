@@ -67,15 +67,24 @@ Run migrations (requires a running Postgres instance):
 pnpm -C packages/db migrate:dev
 ```
 
-## GitHub Codespaces
+## GitHub Codespaces (one-click preview)
 
-1. Click **Code → Codespaces → Create codespace** on this repo.
-2. In the terminal:
-   ```bash
-   pnpm install
-   pnpm -C apps/web dev --port 3000
-   ```
-3. Codespaces will auto-forward port 3000 — click **Open in Browser**.
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/grandrichlife727-design/courts)
+
+Click the badge (or **Code → Codespaces → Create codespace** on GitHub).  
+The devcontainer will automatically:
+1. Install Node 20 + pnpm 9
+2. Run `pnpm install`
+3. Start `next dev` on port 3000
+4. Open a browser preview tab
+
+Pages available in the preview:
+
+| Path | Description |
+|------|-------------|
+| `/` | Public booking home |
+| `/admin` | Admin console |
+| `/staff` | Staff tools |
 
 ## License
 
