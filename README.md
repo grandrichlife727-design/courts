@@ -1,36 +1,82 @@
 # CourtFlow
 
-CourtFlow is a public court booking platform.
-
-## Getting Started
-
-### Prerequisites
-- Node.js
-- PostgreSQL
-- Prisma
-- Stripe
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/grandrichlife727-design/courts.git
-   cd courts
-   ```
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up your environment variables. Copy `.env.example` to `.env` and fill in the required fields.
-4. Run the application:
-   ```bash
-   npm run dev
-   ```
-5. Access the application at `http://localhost:3000`.
+CourtFlow is a public court booking platform built as a pnpm monorepo.
 
 ## Project Structure
-- `apps/web`: Public + Admin UI
-- `packages/db`: Prisma schema
+
+```
+courts/
+├── apps/
+│   └── web/          # Next.js 14 app (public booking, admin, staff)
+└── packages/
+    └── db/           # Prisma schema + generated client
+```
+
+## Local Development
+
+### Prerequisites
+
+- **Node.js** 18+ (or 20+)
+- **pnpm** 9 — install with `npm i -g pnpm@9`
+- **PostgreSQL** (optional for UI-only dev; required for DB features)
+
+### 1. Install dependencies
+
+```bash
+pnpm install
+```
+
+### 2. Run the web app (UI only — no DB required)
+
+```bash
+pnpm -C apps/web dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) — pages available:
+
+| Path | Description |
+|------|-------------|
+| `/` | Public booking home |
+| `/admin` | Admin console |
+| `/staff` | Staff tools |
+
+### 3. Build the web app
+
+```bash
+pnpm -C apps/web build
+```
+
+### 4. Set up the database (optional)
+
+Copy the env file and set your Postgres connection string:
+
+```bash
+cp packages/db/.env.example packages/db/.env
+# Edit packages/db/.env and set DATABASE_URL
+```
+
+Generate the Prisma client:
+
+```bash
+pnpm -C packages/db generate
+```
+
+Run migrations (requires a running Postgres instance):
+
+```bash
+pnpm -C packages/db migrate:dev
+```
+
+## GitHub Codespaces
+
+1. Click **Code → Codespaces → Create codespace** on this repo.
+2. In the terminal:
+   ```bash
+   pnpm install
+   pnpm -C apps/web dev --port 3000
+   ```
+3. Codespaces will auto-forward port 3000 — click **Open in Browser**.
 
 ## License
+
 This project is licensed under the MIT License.
