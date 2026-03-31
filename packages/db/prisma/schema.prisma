@@ -1,13 +1,62 @@
-generator client {
-  provider = "prisma-client-js"
+// Prisma schema defining the models
+
+model Organization {
+  id          Int      @id @default(autoincrement())
+  name        String
+  facilities   Facility[]
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+model Facility {
+  id          Int      @id @default(autoincrement())
+  name        String
+  timezone    String   @default("America/New_York")
+  courts      Court[]
 }
 
-model Healthcheck {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
+model Court {
+  id          Int      @id @default(autoincrement())
+  number      Int
+  facilityId  Int
+  sport       String
+  surface     String
+  user        User?
+}
+
+model User {
+  id          Int    @id @default(autoincrement())
+  name        String
+}
+
+model Reservation {
+  id          Int    @id @default(autoincrement())
+  courtId     Int
+  userId      Int
+  startTime   DateTime
+  endTime     DateTime
+}
+
+model Payment {
+  id          Int    @id @default(autoincrement())
+  reservationId Int
+  amount      Float
+  status      String
+}
+
+model Refund {
+  id          Int    @id @default(autoincrement())
+  paymentId   Int
+  amount      Float
+}
+
+model FacilityClosure {
+  id          Int    @id @default(autoincrement())
+  facilityId  Int
+  startDate   DateTime
+  endDate     DateTime
+}
+
+model AuditEvent {
+  id          Int    @id @default(autoincrement())
+  action      String
+  timestamp   DateTime @default(now())
 }
